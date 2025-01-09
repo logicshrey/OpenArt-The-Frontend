@@ -6,6 +6,9 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import HomePage from './pages/Home'
 import RegistrationForm from './pages/Register'
 import LoginForm from './pages/Login'
+import ArtworksPage from './pages/Artworks';
+import ArtblogsPage from './pages/Artblogs';
+import ArtversePage from './pages/Artverse';
 
 
 function App() {
@@ -15,6 +18,9 @@ function App() {
       <Route path="/" element={<HomePage />} />
       <Route path="/register" element={<RegistrationForm />} />
       <Route path="/login" element={<LoginForm />} />
+      <Route path="/artworks" element={<ArtworksPage />} />
+      <Route path="/artblogs" element={<ArtblogsPage />} />
+      <Route path="/artverse" element={<ArtversePage />} />
     </Routes>
   </BrowserRouter>
   )

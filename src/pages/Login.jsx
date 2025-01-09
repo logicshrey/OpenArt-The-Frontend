@@ -44,7 +44,7 @@ const LoginForm = () => {
 
       const data = await response.json();
       console.log('Login successful:', data);
-      navigate('/dashboard');
+      navigate('/artworks');
       
     } catch (err) {
       console.error('Detailed login error:', err); // More detailed error logging
