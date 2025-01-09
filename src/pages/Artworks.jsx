@@ -100,7 +100,7 @@ const ArtworksPage = () => {
           <a href="/artverse" className="hover:text-gray-300">Artverse</a>
           <a href="#artists" className="hover:text-gray-300">Artists</a>
           <a href="#community" className="hover:text-gray-300">Community</a>
-          <a href="#createartwork" className="hover:text-gray-300">Create Artwork</a>
+          <a href="/createartwork" className="hover:text-gray-300">Create Artwork</a>
           
           {/* Updated Profile Avatar Button */}
           <button

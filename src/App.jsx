@@ -9,6 +9,7 @@ import LoginForm from './pages/Login'
 import ArtworksPage from './pages/Artworks';
 import ArtblogsPage from './pages/Artblogs';
 import ArtversePage from './pages/Artverse';
+import CreateArtwork from './pages/CreateArtwork';
 
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
       <Route path="/artworks" element={<ArtworksPage />} />
       <Route path="/artblogs" element={<ArtblogsPage />} />
       <Route path="/artverse" element={<ArtversePage />} />
+      <Route path="/createartwork" element={<CreateArtwork />} />
     </Routes>
   </BrowserRouter>
   )
