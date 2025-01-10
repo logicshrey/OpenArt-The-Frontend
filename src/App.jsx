@@ -10,6 +10,9 @@ import ArtworksPage from './pages/Artworks';
 import ArtblogsPage from './pages/Artblogs';
 import ArtversePage from './pages/Artverse';
 import CreateArtwork from './pages/CreateArtwork';
+import CreateArtblog from './pages/CreateArtblog';
+import CreateAnnouncement from './pages/CreateAnnouncement';
+import ArtworkDetailPage from './pages/ArtworkDetailPage';
 
 
 function App() {
@@ -23,6 +26,9 @@ function App() {
       <Route path="/artblogs" element={<ArtblogsPage />} />
       <Route path="/artverse" element={<ArtversePage />} />
       <Route path="/createartwork" element={<CreateArtwork />} />
+      <Route path="/createartblog" element={<CreateArtblog />} />
+      <Route path="/createannouncement" element={<CreateAnnouncement />} />
+      <Route path="/artwork/:artworkId" element={<ArtworkDetailPage />} />
     </Routes>
   </BrowserRouter>
   )

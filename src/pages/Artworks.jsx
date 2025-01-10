@@ -90,6 +90,10 @@ const ArtworksPage = () => {
     }
   };
 
+  const handleArtworkClick = (artworkId) => {
+    navigate(`/artwork/${artworkId}`);
+  };
+
   return (
     <div className="min-h-screen bg-black text-white">
       {/* Navigation */}
@@ -102,7 +106,6 @@ const ArtworksPage = () => {
           <a href="#community" className="hover:text-gray-300">Community</a>
           <a href="/createartwork" className="hover:text-gray-300">Create Artwork</a>
           
-          {/* Updated Profile Avatar Button */}
           <button
             onClick={fetchUserProfile}
             disabled={loadingProfile}
@@ -133,7 +136,6 @@ const ArtworksPage = () => {
         </div>
       </nav>
 
-      {/* User Profile Modal */}
       {userData && (
         <UserProfile
           isOpen={isProfileOpen}
@@ -142,7 +144,6 @@ const ArtworksPage = () => {
         />
       )}
 
-      {/* Rest of the component remains the same */}
       <div className="text-center py-20">
         <h1 className="text-6xl font-bold mb-6">Artworks</h1>
         <p className="text-xl max-w-2xl mx-auto">
@@ -162,7 +163,11 @@ const ArtworksPage = () => {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {artworks.map((artwork) => (
-              <Card key={artwork._id} className="bg-transparent border-0 overflow-hidden group">
+              <Card 
+                key={artwork._id} 
+                className="bg-transparent border-0 overflow-hidden group cursor-pointer"
+                onClick={() => handleArtworkClick(artwork._id)}
+              >
                 <CardContent className="p-0">
                   <div className="relative aspect-square">
                     <img
@@ -194,12 +199,10 @@ const ArtworksPage = () => {
 export default ArtworksPage;
 
 
-
-// Default Version 
-
 // import React, { useState, useEffect } from 'react';
 // import { Card, CardContent } from '@/components/ui/card';
 // import { useNavigate } from 'react-router-dom';
+// import UserProfile from './UserProfile';
 
 // const ArtworksPage = () => {
 //   const navigate = useNavigate();
@@ -207,6 +210,9 @@ export default ArtworksPage;
 //   const [loading, setLoading] = useState(true);
 //   const [error, setError] = useState(null);
 //   const [isLoggingOut, setIsLoggingOut] = useState(false);
+//   const [isProfileOpen, setIsProfileOpen] = useState(false);
+//   const [userData, setUserData] = useState(null);
+//   const [loadingProfile, setLoadingProfile] = useState(false);
 
 //   useEffect(() => {
 //     const fetchArtworks = async () => {
@@ -237,6 +243,30 @@ export default ArtworksPage;
 //     fetchArtworks();
 //   }, []);
 
+//   const fetchUserProfile = async () => {
+//     try {
+//       setLoadingProfile(true);
+//       const response = await fetch('http://localhost:8000/openart/api/users/get-account-details', {
+//         credentials: 'include',
+//         headers: {
+//           'Content-Type': 'application/json'
+//         }
+//       });
+
+//       if (!response.ok) {
+//         throw new Error('Failed to fetch user profile');
+//       }
+
+//       const data = await response.json();
+//       setUserData(data.data);
+//       setIsProfileOpen(true);
+//     } catch (error) {
+//       console.error('Error fetching profile:', error);
+//     } finally {
+//       setLoadingProfile(false);
+//     }
+//   };
+
 //   const handleLogout = async () => {
 //     try {
 //       setIsLoggingOut(true);
@@ -249,7 +279,6 @@ export default ArtworksPage;
 //       });
 
 //       if (response.ok) {
-//         // Use window.location for navigation
 //         window.location.href = '/login';
 //       } else {
 //         throw new Error('Logout failed');
@@ -266,13 +295,34 @@ export default ArtworksPage;
 //     <div className="min-h-screen bg-black text-white">
 //       {/* Navigation */}
 //       <nav className="flex items-center justify-between p-6">
-//       <div className="text-2xl font-bold cursor-pointer" onClick={() => navigate('/')}>OpenArt</div>
+//         <div className="text-2xl font-bold cursor-pointer" onClick={() => navigate('/')}>OpenArt</div>
 //         <div className="flex items-center gap-8">
 //           <a href="/artblogs" className="hover:text-gray-300">Artblogs</a>
+//           <a href="/artverse" className="hover:text-gray-300">Artverse</a>
 //           <a href="#artists" className="hover:text-gray-300">Artists</a>
-//           <a href="#artverse" className="hover:text-gray-300">Artverse</a>
 //           <a href="#community" className="hover:text-gray-300">Community</a>
-//           <a href="#createartwork" className="hover:text-gray-300">Create Artwork</a>
+//           <a href="/createartwork" className="hover:text-gray-300">Create Artwork</a>
+          
+//           {/* Updated Profile Avatar Button */}
+//           <button
+//             onClick={fetchUserProfile}
+//             disabled={loadingProfile}
+//             className="w-12 h-12 rounded-full overflow-hidden focus:outline-none focus:ring-2 focus:ring-white hover:opacity-80 transition-opacity"
+//           >
+//             {userData?.avatar ? (
+//               <img
+//                 src={userData.avatar}
+//                 alt="Profile"
+//                 className="w-full h-full object-cover"
+//               />
+//             ) : (
+//               <div className="w-full h-full bg-gray-600 flex items-center justify-center">
+//                 <span className="text-white text-sm">
+//                   {loadingProfile ? '...' : 'P'}
+//                 </span>
+//               </div>
+//             )}
+//           </button>
           
 //           <button 
 //             onClick={handleLogout}
@@ -284,7 +334,16 @@ export default ArtworksPage;
 //         </div>
 //       </nav>
 
-//       {/* Hero Section */}
+//       {/* User Profile Modal */}
+//       {userData && (
+//         <UserProfile
+//           isOpen={isProfileOpen}
+//           onClose={() => setIsProfileOpen(false)}
+//           userData={userData}
+//         />
+//       )}
+
+//       {/* Rest of the component remains the same */}
 //       <div className="text-center py-20">
 //         <h1 className="text-6xl font-bold mb-6">Artworks</h1>
 //         <p className="text-xl max-w-2xl mx-auto">
@@ -292,7 +351,6 @@ export default ArtworksPage;
 //         </p>
 //       </div>
 
-//       {/* Artwork Grid */}
 //       <div className="max-w-7xl mx-auto px-6 pb-20">
 //         {loading ? (
 //           <div className="text-center py-12">
@@ -335,4 +393,3 @@ export default ArtworksPage;
 // };
 
 // export default ArtworksPage;
-

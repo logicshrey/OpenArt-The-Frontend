@@ -18,7 +18,7 @@ const RegistrationForm = () => {
     avatar: null,
     coverImage: null,
     password: '',
-    contentChoice: []
+    contentChoice: [] // Will store as array directly
   });
 
   const contentTypes = [
@@ -40,6 +40,7 @@ const RegistrationForm = () => {
     const { name, value, type, checked, files } = e.target;
     
     if (type === 'checkbox') {
+      // Modified to handle contentChoice as direct array
       const updatedChoices = checked
         ? [...formData.contentChoice, value]
         : formData.contentChoice.filter(choice => choice !== value);
@@ -70,14 +71,17 @@ const RegistrationForm = () => {
       // Create FormData object for handling file uploads
       const submitData = new FormData();
       
-      // Append all form fields to FormData
+      // Modified to handle contentChoice differently
       Object.keys(formData).forEach(key => {
         if (key === 'avatar' || key === 'coverImage') {
           if (formData[key]) {
             submitData.append(key, formData[key]);
           }
         } else if (key === 'contentChoice') {
-          submitData.append(key, JSON.stringify(formData[key]));
+          // Instead of JSON.stringify, append each choice separately
+          formData[key].forEach((choice, index) => {
+            submitData.append(`contentChoice[${index}]`, choice);
+          });
         } else {
           submitData.append(key, formData[key]);
         }
@@ -122,6 +126,7 @@ const RegistrationForm = () => {
     }
   };
 
+  // Rest of the component remains the same...
   return (
     <div className="min-h-screen bg-black text-white p-8">
       {/* Header */}
