@@ -213,7 +213,7 @@ const HeroSection = () => (
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, delay: 0.2 }}
     >
-      Discover and share amazing digital art in our growing community of creators.
+      Open your art to the world. Deep dive into the growing community of creators.
     </motion.p>
     <motion.div 
       className="flex gap-4"
@@ -252,10 +252,10 @@ const AboutSection = () => (
         >
           <h3 className="text-2xl font-semibold mb-4">Our Mission</h3>
           <p className="text-gray-300 mb-6">
-            We're building the future of digital art creation and sharing. Our platform enables artists to showcase their work, connect with others, and grow their creative careers.
+          At OpenArt, we are crafting the future of artistic expression and collaboration. Our mission is to empower artists of every form - painters, musicians, writers, designers, photographers, and more - to showcase their creativity, connect with a global audience, and grow their artistic journey.
           </p>
           <p className="text-gray-300">
-            Join our vibrant community of artists, collectors, and art enthusiasts. Discover unique digital artworks, learn from top creators, and be part of the digital art revolution.
+          Join us in revolutionizing the way art is created, shared, and celebrated. Whether you're a creator or an admirer, OpenArt is where art finds its voice and artists build their future.
           </p>
         </motion.div>
         <motion.div
@@ -268,15 +268,16 @@ const AboutSection = () => (
           <div className="space-y-6">
             <div>
               <h4 className="text-xl font-semibold mb-2">🎨 Create</h4>
-              <p className="text-gray-300">Express yourself through digital art with our powerful tools.</p>
+              <p className="text-gray-300">Unleash your creativity and showcase your art with ease.</p>
             </div>
             <div>
               <h4 className="text-xl font-semibold mb-2">🌟 Share</h4>
-              <p className="text-gray-300">Share your creations with our global community of art lovers.</p>
+              <p className="text-gray-300">Connect with a global community of artists and art enthusiasts.</p>
             </div>
             <div>
               <h4 className="text-xl font-semibold mb-2">💎 Collect</h4>
-              <p className="text-gray-300">Build your collection of unique digital artworks.</p>
+              <p className="text-gray-300">Discover and curate a unique collection of inspiring digital artworks.
+</p>
             </div>
           </div>
         </motion.div>
@@ -346,7 +347,7 @@ const CommunitySection = () => (
           <ul className="space-y-4">
             <li className="flex items-center">
               <span className="mr-2">🎨</span>
-              <span>Weekly Art Challenges</span>
+              <span>Global Art Events</span>
             </li>
             <li className="flex items-center">
               <span className="mr-2">💬</span>
