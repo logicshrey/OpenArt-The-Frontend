@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Card, CardHeader, CardContent } from '@/components/ui/card';
-import { X, Play, Bookmark } from 'lucide-react';
+import { X, Play, Bookmark, Settings } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 const UserProfile = ({ isOpen, onClose, userData }) => {
@@ -15,6 +15,10 @@ const UserProfile = ({ isOpen, onClose, userData }) => {
 
   const handleSavedItemsClick = () => {
     navigate('/saved-items');
+  };
+
+  const handleUpdateClick = () => {
+    navigate('/update-profile');
   };
 
   const renderArtworkGrid = (artworks) => (
@@ -89,12 +93,22 @@ const UserProfile = ({ isOpen, onClose, userData }) => {
             <h2 className="text-2xl font-bold">Profile</h2>
             <div className="flex items-center gap-4">
               <button 
+                onClick={handleUpdateClick}
+                className="p-2 hover:bg-gray-800 rounded-full"
+                title="Update Profile"
+              >
+                <Settings className="h-6 w-6" />
+              </button>
+              <button 
                 onClick={handleSavedItemsClick}
                 className="p-2 hover:bg-gray-800 rounded-full"
               >
                 <Bookmark className="h-6 w-6" />
               </button>
-              <button onClick={onClose} className="p-2 hover:bg-gray-800 rounded-full">
+              <button 
+                onClick={onClose} 
+                className="p-2 hover:bg-gray-800 rounded-full"
+              >
                 <X className="h-6 w-6" />
               </button>
             </div>
@@ -198,7 +212,7 @@ export default UserProfile;
 
 // import React, { useState } from 'react';
 // import { Card, CardHeader, CardContent } from '@/components/ui/card';
-// import { X, Play } from 'lucide-react';
+// import { X, Play, Bookmark } from 'lucide-react';
 // import { useNavigate } from 'react-router-dom';
 
 // const UserProfile = ({ isOpen, onClose, userData }) => {
@@ -209,6 +223,10 @@ export default UserProfile;
 
 //   const handleArtworkClick = (artworkId) => {
 //     navigate(`/artwork/${artworkId}`);
+//   };
+
+//   const handleSavedItemsClick = () => {
+//     navigate('/saved-items');
 //   };
 
 //   const renderArtworkGrid = (artworks) => (
@@ -222,7 +240,6 @@ export default UserProfile;
 //           {artwork.contentType?.includes('video') ? (
 //             <div className="relative w-full h-32 bg-gray-800 rounded-lg flex items-center justify-center">
 //               <Play className="w-8 h-8 text-white" />
-//               {/* Hidden video element */}
 //               <video 
 //                 src={artwork.contentFile}
 //                 className="hidden"
@@ -282,9 +299,17 @@ export default UserProfile;
 //         <Card className="h-full bg-black border-0">
 //           <CardHeader className="sticky top-0 bg-black z-10 flex flex-row justify-between items-center">
 //             <h2 className="text-2xl font-bold">Profile</h2>
-//             <button onClick={onClose} className="p-2 hover:bg-gray-800 rounded-full">
-//               <X className="h-6 w-6" />
-//             </button>
+//             <div className="flex items-center gap-4">
+//               <button 
+//                 onClick={handleSavedItemsClick}
+//                 className="p-2 hover:bg-gray-800 rounded-full"
+//               >
+//                 <Bookmark className="h-6 w-6" />
+//               </button>
+//               <button onClick={onClose} className="p-2 hover:bg-gray-800 rounded-full">
+//                 <X className="h-6 w-6" />
+//               </button>
+//             </div>
 //           </CardHeader>
 //           <CardContent className="space-y-6">
 //             {/* Cover Image */}
@@ -298,7 +323,6 @@ export default UserProfile;
 
 //             {/* Profile Section */}
 //             <div className="relative px-6">
-//               {/* Avatar */}
 //               <div className="absolute -top-20 left-0 w-32 h-32">
 //                 <img
 //                   src={userData.avatar}
@@ -307,7 +331,6 @@ export default UserProfile;
 //                 />
 //               </div>
 
-//               {/* Profile Info */}
 //               <div className="pt-16 space-y-4">
 //                 <div>
 //                   <h3 className="text-3xl font-bold">{userData.fullName}</h3>
@@ -315,7 +338,6 @@ export default UserProfile;
 //                 </div>
 //                 <p className="text-gray-300 text-lg">{userData.bio}</p>
 
-//                 {/* Stats */}
 //                 <div className="flex gap-6">
 //                   <div className="flex items-center gap-1">
 //                     <span className="font-bold text-xl">{userData.followersCount}</span>
@@ -327,7 +349,6 @@ export default UserProfile;
 //                   </div>
 //                 </div>
 
-//                 {/* Interest Tags */}
 //                 <div className="flex flex-wrap gap-2 mt-4">
 //                   {userData.contentChoice.map((choice) => (
 //                     <span 
@@ -341,7 +362,6 @@ export default UserProfile;
 //               </div>
 //             </div>
 
-//             {/* Content Tabs */}
 //             <div className="border-t border-gray-800 mt-8">
 //               <div className="flex gap-6 px-6 -mb-px">
 //                 {['artworks', 'artblogs', 'announcements'].map((tab) => (
@@ -360,7 +380,6 @@ export default UserProfile;
 //               </div>
 //             </div>
 
-//             {/* Tab Content */}
 //             <div className="px-6">
 //               {activeTab === 'artworks' && renderArtworkGrid(userData.createdArtworks)}
               
@@ -387,6 +406,4 @@ export default UserProfile;
 // };
 
 // export default UserProfile;
-
-
 
