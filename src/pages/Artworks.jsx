@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { useNavigate } from 'react-router-dom';
+import { Play } from 'lucide-react';
 import UserProfile from './UserProfile';
 
 const ArtworksPage = () => {
@@ -94,6 +95,52 @@ const ArtworksPage = () => {
     navigate(`/artwork/${artworkId}`);
   };
 
+  const isVideoFile = (url) => {
+    const videoExtensions = ['.mp4', '.webm', '.mov'];
+    return videoExtensions.some(ext => url.toLowerCase().endsWith(ext));
+  };
+
+  const renderContent = (artwork) => {
+    const isVideo = isVideoFile(artwork.contentFile);
+
+    return (
+      <div className="relative aspect-square bg-gray-900">
+        {isVideo ? (
+          <div className="relative w-full h-full">
+            <video
+              src={artwork.contentFile}
+              className="object-cover w-full h-full rounded-lg transition-transform duration-300 group-hover:scale-105"
+              loop
+              muted
+              playsInline
+              onMouseOver={(e) => e.target.play()}
+              onMouseOut={(e) => e.target.pause()}
+            />
+            <div className="absolute inset-0 flex items-center justify-center">
+              <Play className="w-12 h-12 text-white opacity-50 group-hover:opacity-100 transition-opacity" />
+            </div>
+          </div>
+        ) : (
+          <img
+            src={artwork.contentFile}
+            alt={artwork.title}
+            className="object-cover w-full h-full rounded-lg transition-transform duration-300 group-hover:scale-105"
+          />
+        )}
+        <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
+          <h3 className="text-white font-semibold">{artwork.title}</h3>
+          <div className="flex items-center gap-4 mt-2 text-sm text-white/80">
+            <span>Likes: {artwork.likesCount}</span>
+            <span>Comments: {artwork.commentsCount}</span>
+          </div>
+          <p className="text-white/80 text-sm mt-1">
+            By: {artwork.owner?.username || 'Unknown Artist'}
+          </p>
+        </div>
+      </div>
+    );
+  };
+
   return (
     <div className="min-h-screen bg-black text-white">
       {/* Navigation */}
@@ -169,23 +216,7 @@ const ArtworksPage = () => {
                 onClick={() => handleArtworkClick(artwork._id)}
               >
                 <CardContent className="p-0">
-                  <div className="relative aspect-square">
-                    <img
-                      src={artwork.contentFile}
-                      alt={artwork.title}
-                      className="object-cover w-full h-full rounded-lg transition-transform duration-300 group-hover:scale-105"
-                    />
-                    <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
-                      <h3 className="text-white font-semibold">{artwork.title}</h3>
-                      <div className="flex items-center gap-4 mt-2 text-sm text-white/80">
-                        <span>Likes: {artwork.likesCount}</span>
-                        <span>Comments: {artwork.commentsCount}</span>
-                      </div>
-                      <p className="text-white/80 text-sm mt-1">
-                        By: {artwork.owner?.username || 'Unknown Artist'}
-                      </p>
-                    </div>
-                  </div>
+                  {renderContent(artwork)}
                 </CardContent>
               </Card>
             ))}
@@ -291,6 +322,10 @@ export default ArtworksPage;
 //     }
 //   };
 
+//   const handleArtworkClick = (artworkId) => {
+//     navigate(`/artwork/${artworkId}`);
+//   };
+
 //   return (
 //     <div className="min-h-screen bg-black text-white">
 //       {/* Navigation */}
@@ -303,7 +338,6 @@ export default ArtworksPage;
 //           <a href="#community" className="hover:text-gray-300">Community</a>
 //           <a href="/createartwork" className="hover:text-gray-300">Create Artwork</a>
           
-//           {/* Updated Profile Avatar Button */}
 //           <button
 //             onClick={fetchUserProfile}
 //             disabled={loadingProfile}
@@ -334,7 +368,6 @@ export default ArtworksPage;
 //         </div>
 //       </nav>
 
-//       {/* User Profile Modal */}
 //       {userData && (
 //         <UserProfile
 //           isOpen={isProfileOpen}
@@ -343,7 +376,6 @@ export default ArtworksPage;
 //         />
 //       )}
 
-//       {/* Rest of the component remains the same */}
 //       <div className="text-center py-20">
 //         <h1 className="text-6xl font-bold mb-6">Artworks</h1>
 //         <p className="text-xl max-w-2xl mx-auto">
@@ -363,7 +395,11 @@ export default ArtworksPage;
 //         ) : (
 //           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 //             {artworks.map((artwork) => (
-//               <Card key={artwork._id} className="bg-transparent border-0 overflow-hidden group">
+//               <Card 
+//                 key={artwork._id} 
+//                 className="bg-transparent border-0 overflow-hidden group cursor-pointer"
+//                 onClick={() => handleArtworkClick(artwork._id)}
+//               >
 //                 <CardContent className="p-0">
 //                   <div className="relative aspect-square">
 //                     <img
@@ -393,3 +429,4 @@ export default ArtworksPage;
 // };
 
 // export default ArtworksPage;
+

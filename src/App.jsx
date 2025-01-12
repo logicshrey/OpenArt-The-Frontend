@@ -13,6 +13,7 @@ import CreateArtwork from './pages/CreateArtwork';
 import CreateArtblog from './pages/CreateArtblog';
 import CreateAnnouncement from './pages/CreateAnnouncement';
 import ArtworkDetailPage from './pages/ArtworkDetailPage';
+import SavedItems from './pages/SavedItems';
 
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
       <Route path="/createartblog" element={<CreateArtblog />} />
       <Route path="/createannouncement" element={<CreateAnnouncement />} />
       <Route path="/artwork/:artworkId" element={<ArtworkDetailPage />} />
+      <Route path="/saved-items" element={<SavedItems />} />
     </Routes>
   </BrowserRouter>
   )
