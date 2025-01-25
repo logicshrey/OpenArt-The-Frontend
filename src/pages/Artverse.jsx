@@ -18,7 +18,267 @@ const ArtversePage = () => {
   const [comments, setComments] = useState({});
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  // Keep all previous methods like fetchAnnouncements, handleLike, etc. unchanged
+    useEffect(() => {
+    const fetchAnnouncements = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch('https://openart.onrender.com/openart/api/announcements/get_announcements_by_content_choice', {
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+        
+        if (!response.ok) {
+          throw new Error('Failed to fetch announcements');
+        }
+        
+        const data = await response.json();
+        setAnnouncements(data.data.announcements);
+        setError(null);
+      } catch (err) {
+        setError(err.message);
+        setAnnouncements([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchAnnouncements();
+  }, []);
+
+  const fetchComments = async (announcementId) => {
+    try {
+      const response = await fetch(
+        `https://openart.onrender.com/openart/api/comments/get_comments_of_announcement/${announcementId}`,
+        {
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        }
+      );
+      if (!response.ok) throw new Error('Failed to fetch comments');
+      const data = await response.json();
+      setComments(prev => ({
+        ...prev,
+        [announcementId]: data.data.comments
+      }));
+    } catch (error) {
+      console.error('Error fetching comments:', error);
+    }
+  };
+
+  const handleLike = async (announcementId) => {
+    try {
+      const announcement = announcements.find(a => a._id === announcementId);
+      const isLiked = announcement.isLiked;
+      
+      const url = isLiked
+        ? `https://openart.onrender.com/openart/api/likes/unlike_announcement/${announcementId}`
+        : `https://openart.onrender.com/openart/api/likes/add_like_to_announcement/${announcementId}`;
+      
+      const response = await fetch(url, {
+        method: isLiked ? 'DELETE' : 'POST',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (!response.ok) throw new Error('Failed to toggle like');
+
+      setAnnouncements(prev => prev.map(announcement => {
+        if (announcement._id === announcementId) {
+          return {
+            ...announcement,
+            isLiked: !isLiked,
+            likesCount: isLiked ? announcement.likesCount - 1 : announcement.likesCount + 1
+          };
+        }
+        return announcement;
+      }));
+    } catch (error) {
+      console.error('Error toggling like:', error);
+    }
+  };
+
+  const handleSave = async (announcementId) => {
+    try {
+      const announcement = announcements.find(a => a._id === announcementId);
+      const isSaved = announcement.isSaved;
+      
+      const url = isSaved
+        ? `https://openart.onrender.com/openart/api/savedannouncements/unsave_announcement/${announcementId}`
+        : `https://openart.onrender.com/openart/api/savedannouncements/save_announcement/${announcementId}`;
+      
+      const response = await fetch(url, {
+        method: isSaved ? 'DELETE' : 'POST',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (!response.ok) throw new Error('Failed to toggle save');
+
+      setAnnouncements(prev => prev.map(announcement => {
+        if (announcement._id === announcementId) {
+          return {
+            ...announcement,
+            isSaved: !isSaved
+          };
+        }
+        return announcement;
+      }));
+    } catch (error) {
+      console.error('Error toggling save:', error);
+    }
+  };
+
+  const handleAddComment = async (announcementId) => {
+    if (!newComment.trim()) return;
+
+    try {
+      const response = await fetch(
+        `https://openart.onrender.com/openart/api/comments/add_comment_to_announcement/${announcementId}`,
+        {
+          method: 'POST',
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ content: newComment })
+        }
+      );
+
+      if (!response.ok) throw new Error('Failed to add comment');
+
+      setNewComment('');
+      fetchComments(announcementId);
+      setAnnouncements(prev => prev.map(announcement => {
+        if (announcement._id === announcementId) {
+          return {
+            ...announcement,
+            commentsCount: announcement.commentsCount + 1
+          };
+        }
+        return announcement;
+      }));
+    } catch (error) {
+      console.error('Error adding comment:', error);
+    }
+  };
+
+  const handleDeleteComment = async (announcementId, commentId) => {
+    try {
+      const response = await fetch(
+        `https://openart.onrender.com/openart/api/comments/delete_comment/${commentId}`,
+        {
+          method: 'DELETE',
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        }
+      );
+
+      if (!response.ok) throw new Error('Failed to delete comment');
+
+      fetchComments(announcementId);
+      setAnnouncements(prev => prev.map(announcement => {
+        if (announcement._id === announcementId) {
+          return {
+            ...announcement,
+            commentsCount: announcement.commentsCount - 1
+          };
+        }
+        return announcement;
+      }));
+    } catch (error) {
+      console.error('Error deleting comment:', error);
+    }
+  };
+
+  const handleShare = async (announcement) => {
+    const shareData = {
+      title: announcement.title,
+      text: announcement.description.substring(0, 100) + '...',
+      url: window.location.href
+    };
+
+    try {
+      if (navigator.share) {
+        await navigator.share(shareData);
+      } else {
+        await navigator.clipboard.writeText(window.location.href);
+      }
+    } catch (error) {
+      console.error('Error sharing:', error);
+    }
+  };
+
+  const fetchUserProfile = async () => {
+    try {
+      setLoadingProfile(true);
+      const response = await fetch('https://openart.onrender.com/openart/api/users/get-account-details', {
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to fetch user profile');
+      }
+
+      const data = await response.json();
+      setUserData(data.data);
+      setIsProfileOpen(true);
+    } catch (error) {
+      console.error('Error fetching profile:', error);
+    } finally {
+      setLoadingProfile(false);
+    }
+  };
+
+  const handleLogout = async () => {
+    try {
+      setIsLoggingOut(true);
+      const response = await fetch('https://openart.onrender.com/openart/api/users/logout', {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (response.ok) {
+        window.location.href = '/login';
+      } else {
+        throw new Error('Logout failed');
+      }
+    } catch (error) {
+      console.error('Logout error:', error);
+      setError('Failed to logout. Please try again.');
+    } finally {
+      setIsLoggingOut(false);
+    }
+  };
+
+  const formatDate = (dateString) => {
+    return new Date(dateString).toLocaleDateString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric'
+    });
+  };
+
+  const handleProfileNavigation = (profileId) => {
+    navigate(`/profile/${profileId}`);
+  };
+  
+   
 
   const MobileNavMenu = () => (
     <div className={`fixed inset-0 z-50 bg-black ${isMobileMenuOpen ? 'block' : 'hidden'}`}>

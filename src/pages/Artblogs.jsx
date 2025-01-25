@@ -47,10 +47,236 @@ const ArtblogsPage = () => {
     fetchArtblogs();
   }, []);
 
-  // All existing methods remain the same as in the original component:
-  // fetchComments, handleLike, handleSave, handleAddComment, 
-  // handleDeleteComment, handleShare, fetchUserProfile, handleLogout, 
-  // formatDate, handleProfileNavigation remain unchanged
+  const fetchComments = async (blogId) => {
+        try {
+          const response = await fetch(
+            `https://openart.onrender.com/openart/api/comments/get_comments_of_artblog/${blogId}`,
+            {
+              credentials: 'include',
+              headers: {
+                'Content-Type': 'application/json'
+              }
+            }
+          );
+          if (!response.ok) throw new Error('Failed to fetch comments');
+          const data = await response.json();
+          setComments(prev => ({
+            ...prev,
+            [blogId]: data.data.comments
+          }));
+        } catch (error) {
+          console.error('Error fetching comments:', error);
+        }
+      };
+    
+      const handleLike = async (blogId) => {
+        try {
+          const blog = artblogs.find(b => b._id === blogId);
+          const isLiked = blog.isLiked;
+          
+          const url = isLiked
+            ? `https://openart.onrender.com/openart/api/likes/unlike_artblog/${blogId}`
+            : `https://openart.onrender.com/openart/api/likes/add_like_to_artblog/${blogId}`;
+          
+          const response = await fetch(url, {
+            method: isLiked ? 'DELETE' : 'POST',
+            credentials: 'include',
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          });
+    
+          if (!response.ok) throw new Error('Failed to toggle like');
+    
+          setArtblogs(prev => prev.map(blog => {
+            if (blog._id === blogId) {
+              return {
+                ...blog,
+                isLiked: !isLiked,
+                likesCount: isLiked ? blog.likesCount - 1 : blog.likesCount + 1
+              };
+            }
+            return blog;
+          }));
+        } catch (error) {
+          console.error('Error toggling like:', error);
+        }
+      };
+    
+      const handleSave = async (blogId) => {
+        try {
+          const blog = artblogs.find(b => b._id === blogId);
+          const isSaved = blog.isSaved;
+          
+          const url = isSaved
+            ? `https://openart.onrender.com/openart/api/savedartblogs/unsave_artblog/${blogId}`
+            : `https://openart.onrender.com/openart/api/savedartblogs/save_artblog/${blogId}`;
+          
+          const response = await fetch(url, {
+            method: isSaved ? 'DELETE' : 'POST',
+            credentials: 'include',
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          });
+    
+          if (!response.ok) throw new Error('Failed to toggle save');
+    
+          setArtblogs(prev => prev.map(blog => {
+            if (blog._id === blogId) {
+              return {
+                ...blog,
+                isSaved: !isSaved
+              };
+            }
+            return blog;
+          }));
+        } catch (error) {
+          console.error('Error toggling save:', error);
+        }
+      };
+    
+      const handleAddComment = async (blogId) => {
+        if (!newComment.trim()) return;
+    
+        try {
+          const response = await fetch(
+            `https://openart.onrender.com/openart/api/comments/add_comment_to_artblog/${blogId}`,
+            {
+              method: 'POST',
+              credentials: 'include',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({ content: newComment })
+            }
+          );
+    
+          if (!response.ok) throw new Error('Failed to add comment');
+    
+          setNewComment('');
+          fetchComments(blogId);
+          setArtblogs(prev => prev.map(blog => {
+            if (blog._id === blogId) {
+              return {
+                ...blog,
+                commentsCount: blog.commentsCount + 1
+              };
+            }
+            return blog;
+          }));
+        } catch (error) {
+          console.error('Error adding comment:', error);
+        }
+      };
+    
+      const handleDeleteComment = async (blogId, commentId) => {
+        try {
+          const response = await fetch(
+            `https://openart.onrender.com/openart/api/comments/delete_comment/${commentId}`,
+            {
+              method: 'DELETE',
+              credentials: 'include',
+              headers: {
+                'Content-Type': 'application/json'
+              }
+            }
+          );
+    
+          if (!response.ok) throw new Error('Failed to delete comment');
+    
+          fetchComments(blogId);
+          setArtblogs(prev => prev.map(blog => {
+            if (blog._id === blogId) {
+              return {
+                ...blog,
+                commentsCount: blog.commentsCount - 1
+              };
+            }
+            return blog;
+          }));
+        } catch (error) {
+          console.error('Error deleting comment:', error);
+        }
+      };
+    
+      const handleShare = async (blog) => {
+        const shareData = {
+          title: blog.title,
+          text: blog.content.substring(0, 100) + '...',
+          url: window.location.href
+        };
+    
+        try {
+          if (navigator.share) {
+            await navigator.share(shareData);
+          } else {
+            await navigator.clipboard.writeText(window.location.href);
+          }
+        } catch (error) {
+          console.error('Error sharing:', error);
+        }
+      };
+    
+      const fetchUserProfile = async () => {
+        try {
+          setLoadingProfile(true);
+          const response = await fetch('https://openart.onrender.com/openart/api/users/get-account-details', {
+            credentials: 'include',
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          });
+    
+          if (!response.ok) {
+            throw new Error('Failed to fetch user profile');
+          }
+    
+          const data = await response.json();
+          setUserData(data.data);
+          setIsProfileOpen(true);
+        } catch (error) {
+          console.error('Error fetching profile:', error);
+        } finally {
+          setLoadingProfile(false);
+        }
+      };
+    
+      const handleLogout = async () => {
+        try {
+          setIsLoggingOut(true);
+          const response = await fetch('https://openart.onrender.com/openart/api/users/logout', {
+            method: 'POST',
+            credentials: 'include',
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          });
+    
+          if (response.ok) {
+            window.location.href = '/login';
+          } else {
+            throw new Error('Logout failed');
+          }
+        } catch (error) {
+          console.error('Logout error:', error);
+          setError('Failed to logout. Please try again.');
+        } finally {
+          setIsLoggingOut(false);
+        }
+      };
+    
+      const formatDate = (dateString) => {
+        return new Date(dateString).toLocaleDateString('en-US', {
+          month: 'short',
+          day: 'numeric',
+          year: 'numeric'
+        });
+      };
+    
+      const handleProfileNavigation = (profileId) => {
+        navigate(`/profile/${profileId}`);
+      };
 
   const MobileNavMenu = () => (
     <div className={`fixed inset-0 z-50 bg-black ${isMobileMenuOpen ? 'block' : 'hidden'}`}>
