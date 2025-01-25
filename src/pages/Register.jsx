@@ -126,18 +126,12 @@ const RegistrationForm = () => {
     }
   };
 
-  // Rest of the component remains the same...
   return (
     <div className="min-h-screen bg-black text-white p-8">
       {/* Header */}
       <nav className="flex justify-between items-center mb-16">
         <div className="text-xl font-bold cursor-pointer" onClick={() => navigate('/')}>OpenArt</div>
         <div className="flex items-center gap-6">
-          <a href="#" className="hover:text-gray-300">About</a>
-          <a href="https://artsandculture.google.com/category/artist" className="hover:text-gray-300">Artists</a>
-          <a href="https://artsocietyofindia.org" className="hover:text-gray-300">Community</a>
-          <a href="#" className="hover:text-gray-300">Artverse</a>
-          <a href="#" className="hover:text-gray-300">More</a>
           <button onClick={() => navigate('/login')} className="bg-transparent border border-white px-4 py-2 rounded-full hover:bg-white hover:text-black transition-colors">
             Log In
           </button>
