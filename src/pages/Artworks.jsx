@@ -150,8 +150,8 @@ const ArtworksPage = () => {
         <div className="flex items-center gap-8">
           <a href="/artblogs" className="hover:text-gray-300">Artblogs</a>
           <a href="/artverse" className="hover:text-gray-300">Artverse</a>
-          <a href="https://artsandculture.google.com/category/artist" className="hover:text-gray-300">Artists</a>
-          <a href="https://artsocietyofindia.org" className="hover:text-gray-300">Community</a>
+          {/* <a href="https://artsandculture.google.com/category/artist" className="hover:text-gray-300">Artists</a>
+          <a href="https://artsocietyofindia.org" className="hover:text-gray-300">Community</a> */}
           <a href="/createartwork" className="hover:text-gray-300">Create Artwork</a>
           
           <button
