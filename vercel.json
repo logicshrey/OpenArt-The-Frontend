@@ -1,9 +1,0 @@
-{
-    "rewrites": [
-      {
-        "src": "/.*",
-        "dest": "/openart/index.html",
-        "status": 200
-      }
-    ]
-  }
