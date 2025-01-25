@@ -1,8 +1,9 @@
 {
-    "rewrites": [
+    "routes": [
       {
-        "source": "/(.*)",
-        "destination": "/openart/index.html"
+        "src": "/.*",
+        "dest": "/openart/index.html",
+        "status": 200
       }
     ]
   }
