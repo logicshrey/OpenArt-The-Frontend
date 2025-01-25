@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button.jsx";
 import { Checkbox } from "@/components/ui/checkbox.jsx";
 import { Facebook, Twitter, Linkedin } from 'lucide-react';
 
-const Footer = () => {
+const Footer = ({navigate}) => {
   return (
     <div className="bg-gradient-to-br from-purple-100 to-purple-300 p-8">
       <div className="max-w-6xl mx-auto">
@@ -30,7 +30,7 @@ const Footer = () => {
               </label>
             </div>
             
-            <Button className="bg-blue-600 hover:bg-blue-700 rounded-full px-8 text-white">
+            <Button onClick={() => navigate('/login')} className="bg-blue-600 hover:bg-blue-700 rounded-full px-8 text-white">
               Sign Up
             </Button>
           </div>
@@ -43,7 +43,7 @@ const Footer = () => {
             <h3 className="font-medium mb-2 text-gray-800">OpenArt</h3>
             <p className="text-sm text-gray-700">
               For any questions please email<br />
-              info@openart.com
+              logicshrey@gmail.com
             </p>
           </div>
 

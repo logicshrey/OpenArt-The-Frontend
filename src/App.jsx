@@ -15,6 +15,7 @@ import CreateAnnouncement from './pages/CreateAnnouncement';
 import ArtworkDetailPage from './pages/ArtworkDetailPage';
 import SavedItems from './pages/SavedItems';
 import UpdateProfile from './pages/UpdateProfile';
+import OtherUserProfile from './pages/OtherUserProfile';
 
 
 function App() {
@@ -33,6 +34,7 @@ function App() {
       <Route path="/artwork/:artworkId" element={<ArtworkDetailPage />} />
       <Route path="/saved-items" element={<SavedItems />} />
       <Route path="/update-profile" element={<UpdateProfile />} />
+      <Route path="/profile/:profileId" element={<OtherUserProfile />} />
     </Routes>
   </BrowserRouter>
   )

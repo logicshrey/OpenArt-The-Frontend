@@ -61,8 +61,8 @@ const LoginForm = () => {
         <div className="text-xl font-bold cursor-pointer" onClick={() => navigate('/')}>OpenArt</div>
         <div className="flex gap-6 items-center">
           <a href="#" className="hover:text-gray-300">About</a>
-          <a href="#" className="hover:text-gray-300">Artists</a>
-          <a href="#" className="hover:text-gray-300">Community</a>
+          <a href="https://artsandculture.google.com/category/artist" className="hover:text-gray-300">Artists</a>
+          <a href="https://artsocietyofindia.org" className="hover:text-gray-300">Community</a>
           <a href="#" className="hover:text-gray-300">Artverse</a>
           <a href="#" className="hover:text-gray-300">More</a>
         </div>

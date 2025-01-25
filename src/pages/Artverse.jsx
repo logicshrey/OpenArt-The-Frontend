@@ -273,6 +273,10 @@ const ArtversePage = () => {
     });
   };
 
+  const handleProfileNavigation = (profileId) => {
+    navigate(`/profile/${profileId}`);
+  };
+
     return (
     <div className="min-h-screen bg-black text-white">
       {/* Navigation */}
@@ -281,8 +285,8 @@ const ArtversePage = () => {
         <div className="flex items-center gap-8">
           <a href="/artworks" className="hover:text-gray-300">Artworks</a>
           <a href="/artblogs" className="hover:text-gray-300">Artblogs</a>
-          <a href="#artists" className="hover:text-gray-300">Artists</a>
-          <a href="#community" className="hover:text-gray-300">Community</a>
+          <a href="https://artsandculture.google.com/category/artist" className="hover:text-gray-300">Artists</a>
+          <a href="https://artsocietyofindia.org" className="hover:text-gray-300">Community</a>
           <a href="/createannouncement" className="hover:text-gray-300">Create Announcement</a>
           
           {/* Profile Avatar Button */}
@@ -351,7 +355,8 @@ const ArtversePage = () => {
                     <img
                       src={announcement.owner?.avatar || '/api/placeholder/40/40'}
                       alt={announcement.owner?.username}
-                      className="w-12 h-12 rounded-full object-cover"
+                      className="w-12 h-12 rounded-full object-cover cursor-pointer"
+                      onClick={() => handleProfileNavigation(announcement.owner?._id)}
                     />
                     <div className="flex-1">
                       <div className="flex items-center gap-2">
