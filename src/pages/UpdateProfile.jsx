@@ -317,7 +317,6 @@ const UpdateProfile = () => {
   
           {activeSection === 'details' && (
             <form onSubmit={handleUpdateDetails} className="space-y-4 px-2 md:px-0">
-              {/* Existing form fields with responsive padding */}
               <div>
                 <label className="block text-sm font-medium mb-2">Full Name</label>
                 <input
@@ -328,7 +327,35 @@ const UpdateProfile = () => {
                   placeholder="Enter your full name"
                 />
               </div>
-              {/* Add other form fields similarly */}
+              <div>
+                <label className="block text-sm font-medium mb-2">Email</label>
+                <input
+                  type="email"
+                  value={userDetails.email}
+                  onChange={(e) => setUserDetails({...userDetails, email: e.target.value})}
+                  className="w-full bg-gray-800 rounded-lg p-3"
+                  placeholder="Enter your email"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium mb-2">Country</label>
+                <input
+                  type="text"
+                  value={userDetails.country}
+                  onChange={(e) => setUserDetails({...userDetails, country: e.target.value})}
+                  className="w-full bg-gray-800 rounded-lg p-3"
+                  placeholder="Enter your country"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium mb-2">Bio</label>
+                <textarea
+                  value={userDetails.bio}
+                  onChange={(e) => setUserDetails({...userDetails, bio: e.target.value})}
+                  className="w-full bg-gray-800 rounded-lg p-3 min-h-[100px]"
+                  placeholder="Tell us about yourself"
+                />
+              </div>
               <button 
                 type="submit" 
                 className="w-full bg-white text-black py-3 rounded-lg font-medium hover:bg-gray-100"
@@ -341,7 +368,6 @@ const UpdateProfile = () => {
   
           {activeSection === 'images' && (
             <div className="space-y-6 px-2 md:px-0">
-              {/* Image upload sections with responsive padding */}
               <form onSubmit={handleUpdateAvatar} className="space-y-4">
                 <div>
                   <label className="block text-sm font-medium mb-2">Profile Picture</label>
@@ -382,22 +408,101 @@ const UpdateProfile = () => {
             </div>
           )}
   
-          {/* Other sections with similar responsive modifications */}
           {activeSection === 'password' && (
             <form onSubmit={handleChangePassword} className="space-y-4 px-2 md:px-0">
-              {/* Password change form */}
+              <div>
+                <label className="block text-sm font-medium mb-2">Current Password</label>
+                <input
+                  type="password"
+                  value={passwords.oldPassword}
+                  onChange={(e) => setPasswords({...passwords, oldPassword: e.target.value})}
+                  className="w-full bg-gray-800 rounded-lg p-3"
+                  placeholder="Enter current password"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium mb-2">New Password</label>
+                <input
+                  type="password"
+                  value={passwords.newPassword}
+                  onChange={(e) => setPasswords({...passwords, newPassword: e.target.value})}
+                  className="w-full bg-gray-800 rounded-lg p-3"
+                  placeholder="Enter new password"
+                />
+              </div>
+              <button 
+                type="submit" 
+                className="w-full bg-white text-black py-3 rounded-lg font-medium hover:bg-gray-100"
+                disabled={isLoading || !passwords.oldPassword || !passwords.newPassword}
+              >
+                {isLoading ? 'Changing...' : 'Change Password'}
+              </button>
             </form>
           )}
   
           {activeSection === 'account' && (
             <form onSubmit={handleChangeAccountType} className="space-y-4 px-2 md:px-0">
-              {/* Account type form */}
+              <div>
+                <label className="block text-sm font-medium mb-2">Account Type</label>
+                <select
+                  value={accountType.accountType}
+                  onChange={(e) => setAccountType({...accountType, accountType: e.target.value})}
+                  className="w-full bg-gray-800 rounded-lg p-3"
+                >
+                  <option value="">Select Account Type</option>
+                  <option value="creator">Creator</option>
+                  <option value="collector">Collector</option>
+                </select>
+              </div>
+              <div>
+                <label className="block text-sm font-medium mb-2">Art Field</label>
+                <input
+                  type="text"
+                  value={accountType.artField}
+                  onChange={(e) => setAccountType({...accountType, artField: e.target.value})}
+                  className="w-full bg-gray-800 rounded-lg p-3"
+                  placeholder="Enter your art field"
+                />
+              </div>
+              <button 
+                type="submit" 
+                className="w-full bg-white text-black py-3 rounded-lg font-medium hover:bg-gray-100"
+                disabled={isLoading || !accountType.accountType || !accountType.artField}
+              >
+                {isLoading ? 'Updating...' : 'Update Account Type'}
+              </button>
             </form>
           )}
   
           {activeSection === 'content' && (
             <form onSubmit={handleUpdateContentChoice} className="space-y-4 px-2 md:px-0">
-              {/* Content choice form */}
+              <div className="space-y-2">
+                <label className="block text-sm font-medium mb-2">Content Preferences</label>
+                {['Digital Art', 'Traditional Art', 'Photography', 'Sculpture', 'Installation', 'Performance'].map((choice) => (
+                  <label key={choice} className="flex items-center gap-2 p-2 hover:bg-gray-800 rounded">
+                    <input
+                      type="checkbox"
+                      checked={contentChoice.includes(choice)}
+                      onChange={(e) => {
+                        if (e.target.checked) {
+                          setContentChoice([...contentChoice, choice]);
+                        } else {
+                          setContentChoice(contentChoice.filter(c => c !== choice));
+                        }
+                      }}
+                      className="rounded bg-gray-800"
+                    />
+                    {choice}
+                  </label>
+                ))}
+              </div>
+              <button 
+                type="submit" 
+                className="w-full bg-white text-black py-3 rounded-lg font-medium hover:bg-gray-100"
+                disabled={isLoading || contentChoice.length === 0}
+              >
+                {isLoading ? 'Updating...' : 'Update Content Preferences'}
+              </button>
             </form>
           )}
         </CardContent>
