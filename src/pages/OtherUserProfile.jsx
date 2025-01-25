@@ -25,7 +25,7 @@ const OtherUserProfile = () => {
         throw new Error('Profile ID is missing');
       }
 
-      const response = await axios.get(`http://localhost:8000/openart/api/profiles/get_profile_details/${profileId}`, {
+      const response = await axios.get(`https://openart.onrender.com/openart/api/profiles/get_profile_details/${profileId}`, {
         headers: {
           'Content-Type': 'application/json'
         },
@@ -64,8 +64,8 @@ const OtherUserProfile = () => {
     try {
       // Use POST method for both follow and unfollow
       const endpoint = isFollowing 
-        ? `http://localhost:8000/openart/api/follows/remove_follower/${profileId}`
-        : `http://localhost:8000/openart/api/follows/add_follower/${profileId}`;
+        ? `https://openart.onrender.com/openart/api/follows/remove_follower/${profileId}`
+        : `https://openart.onrender.com/openart/api/follows/add_follower/${profileId}`;
       
       // Send an empty object as body and use withCredentials
       await axios.post(endpoint, {}, { withCredentials: true });
@@ -333,7 +333,7 @@ export default OtherUserProfile;
 //         throw new Error('Profile ID is missing');
 //       }
 
-//       const response = await axios.get(`http://localhost:8000/openart/api/profiles/get_profile_details/${profileId}`, {
+//       const response = await axios.get(`https://openart.onrender.com/openart/api/profiles/get_profile_details/${profileId}`, {
 //         headers: {
 //           'Content-Type': 'application/json'
 //         },
@@ -373,8 +373,8 @@ export default OtherUserProfile;
 //   const handleFollowToggle = async () => {
 //     try {
 //       const endpoint = isFollowing 
-//         ? `http://localhost:8000/openart/api/follows/remove_follower/${profileId}`
-//         : `http://localhost:8000/openart/api/follows/add_follower/${profileId}`;
+//         ? `https://openart.onrender.com/openart/api/follows/remove_follower/${profileId}`
+//         : `https://openart.onrender.com/openart/api/follows/add_follower/${profileId}`;
       
 //       await axios.post(endpoint, {}, { withCredentials: true });
       

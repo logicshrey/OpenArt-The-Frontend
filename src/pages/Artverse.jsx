@@ -21,7 +21,7 @@ const ArtversePage = () => {
     const fetchAnnouncements = async () => {
       try {
         setLoading(true);
-        const response = await fetch('http://localhost:8000/openart/api/announcements/get_announcements_by_content_choice', {
+        const response = await fetch('https://openart.onrender.com/openart/api/announcements/get_announcements_by_content_choice', {
           credentials: 'include',
           headers: {
             'Content-Type': 'application/json'
@@ -49,7 +49,7 @@ const ArtversePage = () => {
   const fetchComments = async (announcementId) => {
     try {
       const response = await fetch(
-        `http://localhost:8000/openart/api/comments/get_comments_of_announcement/${announcementId}`,
+        `https://openart.onrender.com/openart/api/comments/get_comments_of_announcement/${announcementId}`,
         {
           credentials: 'include',
           headers: {
@@ -74,8 +74,8 @@ const ArtversePage = () => {
       const isLiked = announcement.isLiked;
       
       const url = isLiked
-        ? `http://localhost:8000/openart/api/likes/unlike_announcement/${announcementId}`
-        : `http://localhost:8000/openart/api/likes/add_like_to_announcement/${announcementId}`;
+        ? `https://openart.onrender.com/openart/api/likes/unlike_announcement/${announcementId}`
+        : `https://openart.onrender.com/openart/api/likes/add_like_to_announcement/${announcementId}`;
       
       const response = await fetch(url, {
         method: isLiked ? 'DELETE' : 'POST',
@@ -108,8 +108,8 @@ const ArtversePage = () => {
       const isSaved = announcement.isSaved;
       
       const url = isSaved
-        ? `http://localhost:8000/openart/api/savedannouncements/unsave_announcement/${announcementId}`
-        : `http://localhost:8000/openart/api/savedannouncements/save_announcement/${announcementId}`;
+        ? `https://openart.onrender.com/openart/api/savedannouncements/unsave_announcement/${announcementId}`
+        : `https://openart.onrender.com/openart/api/savedannouncements/save_announcement/${announcementId}`;
       
       const response = await fetch(url, {
         method: isSaved ? 'DELETE' : 'POST',
@@ -140,7 +140,7 @@ const ArtversePage = () => {
 
     try {
       const response = await fetch(
-        `http://localhost:8000/openart/api/comments/add_comment_to_announcement/${announcementId}`,
+        `https://openart.onrender.com/openart/api/comments/add_comment_to_announcement/${announcementId}`,
         {
           method: 'POST',
           credentials: 'include',
@@ -172,7 +172,7 @@ const ArtversePage = () => {
   const handleDeleteComment = async (announcementId, commentId) => {
     try {
       const response = await fetch(
-        `http://localhost:8000/openart/api/comments/delete_comment/${commentId}`,
+        `https://openart.onrender.com/openart/api/comments/delete_comment/${commentId}`,
         {
           method: 'DELETE',
           credentials: 'include',
@@ -220,7 +220,7 @@ const ArtversePage = () => {
   const fetchUserProfile = async () => {
     try {
       setLoadingProfile(true);
-      const response = await fetch('http://localhost:8000/openart/api/users/get-account-details', {
+      const response = await fetch('https://openart.onrender.com/openart/api/users/get-account-details', {
         credentials: 'include',
         headers: {
           'Content-Type': 'application/json'
@@ -244,7 +244,7 @@ const ArtversePage = () => {
   const handleLogout = async () => {
     try {
       setIsLoggingOut(true);
-      const response = await fetch('http://localhost:8000/openart/api/users/logout', {
+      const response = await fetch('https://openart.onrender.com/openart/api/users/logout', {
         method: 'POST',
         credentials: 'include',
         headers: {

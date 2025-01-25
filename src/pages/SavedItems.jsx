@@ -26,9 +26,9 @@ const SavedItems = () => {
           };
   
           const [artworksRes, artblogsRes, announcementsRes] = await Promise.all([
-            fetch('http://localhost:8000/openart/api/users/get-saved-artworks', fetchOptions),
-            fetch('http://localhost:8000/openart/api/users/get-saved-artblogs', fetchOptions),
-            fetch('http://localhost:8000/openart/api/users/get-saved-announcements', fetchOptions)
+            fetch('https://openart.onrender.com/openart/api/users/get-saved-artworks', fetchOptions),
+            fetch('https://openart.onrender.com/openart/api/users/get-saved-artblogs', fetchOptions),
+            fetch('https://openart.onrender.com/openart/api/users/get-saved-announcements', fetchOptions)
           ]);
   
           if (!artworksRes.ok || !artblogsRes.ok || !announcementsRes.ok) {
@@ -229,9 +229,9 @@ export default SavedItems;
 //           };
   
 //           const [artworksRes, artblogsRes, announcementsRes] = await Promise.all([
-//             fetch('http://localhost:8000/openart/api/users/get-saved-artworks', fetchOptions),
-//             fetch('http://localhost:8000/openart/api/users/get-saved-artblogs', fetchOptions),
-//             fetch('http://localhost:8000/openart/api/users/get-saved-announcements', fetchOptions)
+//             fetch('https://openart.onrender.com/openart/api/users/get-saved-artworks', fetchOptions),
+//             fetch('https://openart.onrender.com/openart/api/users/get-saved-artblogs', fetchOptions),
+//             fetch('https://openart.onrender.com/openart/api/users/get-saved-announcements', fetchOptions)
 //           ]);
   
 //           // Check responses

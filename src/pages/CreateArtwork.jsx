@@ -53,7 +53,7 @@ const CreateArtwork = () => {
         formDataToSend.append('contentFile', contentFile);
       }
 
-      const response = await fetch('http://localhost:8000/openart/api/artworks/create_artwork', {
+      const response = await fetch('https://openart.onrender.com/openart/api/artworks/create_artwork', {
         method: 'POST',
         body: formDataToSend,
         credentials: 'include'
@@ -252,7 +252,7 @@ export default CreateArtwork;
 //         formDataToSend.append('contentFile', contentFile);
 //       }
 
-//       const response = await fetch('http://localhost:8000/openart/api/artworks/create_artwork', {
+//       const response = await fetch('https://openart.onrender.com/openart/api/artworks/create_artwork', {
 //         method: 'POST',
 //         body: formDataToSend,
 //         credentials: 'include'

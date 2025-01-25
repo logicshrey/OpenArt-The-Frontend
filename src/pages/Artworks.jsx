@@ -18,7 +18,7 @@ const ArtworksPage = () => {
     const fetchArtworks = async () => {
       try {
         setLoading(true);
-        const response = await fetch('http://localhost:8000/openart/api/artworks/get_artworks_by_content_choice', {
+        const response = await fetch('https://openart.onrender.com/openart/api/artworks/get_artworks_by_content_choice', {
           credentials: 'include',
           headers: {
             'Content-Type': 'application/json'
@@ -46,7 +46,7 @@ const ArtworksPage = () => {
   const fetchUserProfile = async () => {
     try {
       setLoadingProfile(true);
-      const response = await fetch('http://localhost:8000/openart/api/users/get-account-details', {
+      const response = await fetch('https://openart.onrender.com/openart/api/users/get-account-details', {
         credentials: 'include',
         headers: {
           'Content-Type': 'application/json'
@@ -70,7 +70,7 @@ const ArtworksPage = () => {
   const handleLogout = async () => {
     try {
       setIsLoggingOut(true);
-      const response = await fetch('http://localhost:8000/openart/api/users/logout', {
+      const response = await fetch('https://openart.onrender.com/openart/api/users/logout', {
         method: 'POST',
         credentials: 'include',
         headers: {

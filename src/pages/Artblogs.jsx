@@ -21,7 +21,7 @@ const ArtblogsPage = () => {
     const fetchArtblogs = async () => {
       try {
         setLoading(true);
-        const response = await fetch('http://localhost:8000/openart/api/artblogs/get_artblogs_by_content_choice', {
+        const response = await fetch('https://openart.onrender.com/openart/api/artblogs/get_artblogs_by_content_choice', {
           credentials: 'include',
           headers: {
             'Content-Type': 'application/json'
@@ -49,7 +49,7 @@ const ArtblogsPage = () => {
   const fetchComments = async (blogId) => {
     try {
       const response = await fetch(
-        `http://localhost:8000/openart/api/comments/get_comments_of_artblog/${blogId}`,
+        `https://openart.onrender.com/openart/api/comments/get_comments_of_artblog/${blogId}`,
         {
           credentials: 'include',
           headers: {
@@ -74,8 +74,8 @@ const ArtblogsPage = () => {
       const isLiked = blog.isLiked;
       
       const url = isLiked
-        ? `http://localhost:8000/openart/api/likes/unlike_artblog/${blogId}`
-        : `http://localhost:8000/openart/api/likes/add_like_to_artblog/${blogId}`;
+        ? `https://openart.onrender.com/openart/api/likes/unlike_artblog/${blogId}`
+        : `https://openart.onrender.com/openart/api/likes/add_like_to_artblog/${blogId}`;
       
       const response = await fetch(url, {
         method: isLiked ? 'DELETE' : 'POST',
@@ -108,8 +108,8 @@ const ArtblogsPage = () => {
       const isSaved = blog.isSaved;
       
       const url = isSaved
-        ? `http://localhost:8000/openart/api/savedartblogs/unsave_artblog/${blogId}`
-        : `http://localhost:8000/openart/api/savedartblogs/save_artblog/${blogId}`;
+        ? `https://openart.onrender.com/openart/api/savedartblogs/unsave_artblog/${blogId}`
+        : `https://openart.onrender.com/openart/api/savedartblogs/save_artblog/${blogId}`;
       
       const response = await fetch(url, {
         method: isSaved ? 'DELETE' : 'POST',
@@ -140,7 +140,7 @@ const ArtblogsPage = () => {
 
     try {
       const response = await fetch(
-        `http://localhost:8000/openart/api/comments/add_comment_to_artblog/${blogId}`,
+        `https://openart.onrender.com/openart/api/comments/add_comment_to_artblog/${blogId}`,
         {
           method: 'POST',
           credentials: 'include',
@@ -172,7 +172,7 @@ const ArtblogsPage = () => {
   const handleDeleteComment = async (blogId, commentId) => {
     try {
       const response = await fetch(
-        `http://localhost:8000/openart/api/comments/delete_comment/${commentId}`,
+        `https://openart.onrender.com/openart/api/comments/delete_comment/${commentId}`,
         {
           method: 'DELETE',
           credentials: 'include',
@@ -220,7 +220,7 @@ const ArtblogsPage = () => {
   const fetchUserProfile = async () => {
     try {
       setLoadingProfile(true);
-      const response = await fetch('http://localhost:8000/openart/api/users/get-account-details', {
+      const response = await fetch('https://openart.onrender.com/openart/api/users/get-account-details', {
         credentials: 'include',
         headers: {
           'Content-Type': 'application/json'
@@ -244,7 +244,7 @@ const ArtblogsPage = () => {
   const handleLogout = async () => {
     try {
       setIsLoggingOut(true);
-      const response = await fetch('http://localhost:8000/openart/api/users/logout', {
+      const response = await fetch('https://openart.onrender.com/openart/api/users/logout', {
         method: 'POST',
         credentials: 'include',
         headers: {

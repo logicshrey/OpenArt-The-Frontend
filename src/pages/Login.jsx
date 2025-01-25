@@ -26,7 +26,7 @@ const LoginForm = () => {
     try {
       console.log('Attempting to login with:', formData); // Log the request data
       
-      const response = await fetch('http://localhost:8000/openart/api/users/login', {
+      const response = await fetch('https://openart.onrender.com/openart/api/users/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

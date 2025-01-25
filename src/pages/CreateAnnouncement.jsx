@@ -50,7 +50,7 @@ const CreateAnnouncement = () => {
         formDataToSend.append('image', image);
       }
 
-      const response = await fetch('http://localhost:8000/openart/api/announcements/create_announcement', {
+      const response = await fetch('https://openart.onrender.com/openart/api/announcements/create_announcement', {
         method: 'POST',
         body: formDataToSend,
         credentials: 'include'

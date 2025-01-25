@@ -36,7 +36,7 @@ const ArtworkDetailPage = () => {
       try {
         setLoading(true);
         const response = await fetch(
-          `http://localhost:8000/openart/api/artworks/get_artwork/${artworkId}`,
+          `https://openart.onrender.com/openart/api/artworks/get_artwork/${artworkId}`,
           {
             credentials: "include",
             headers: {
@@ -74,7 +74,7 @@ const ArtworkDetailPage = () => {
   const fetchComments = async () => {
     try {
       const response = await fetch(
-        `http://localhost:8000/openart/api/comments/get_comments_of_artwork/${artworkId}`,
+        `https://openart.onrender.com/openart/api/comments/get_comments_of_artwork/${artworkId}`,
         {
           credentials: "include",
           headers: {
@@ -95,8 +95,8 @@ const ArtworkDetailPage = () => {
   const handleLike = async () => {
     try {
       const url = artwork.isLiked
-        ? `http://localhost:8000/openart/api/likes/unlike_artwork/${artworkId}`
-        : `http://localhost:8000/openart/api/likes/add_like_to_artwork/${artworkId}`;
+        ? `https://openart.onrender.com/openart/api/likes/unlike_artwork/${artworkId}`
+        : `https://openart.onrender.com/openart/api/likes/add_like_to_artwork/${artworkId}`;
 
       const response = await fetch(url, {
         method: artwork.isLiked ? "DELETE" : "POST",
@@ -121,8 +121,8 @@ const ArtworkDetailPage = () => {
   const handleSave = async () => {
     try {
       const url = artwork.isSaved
-        ? `http://localhost:8000/openart/api/savedartworks/unsave_artwork/${artworkId}`
-        : `http://localhost:8000/openart/api/savedartworks/save_artwork/${artworkId}`;
+        ? `https://openart.onrender.com/openart/api/savedartworks/unsave_artwork/${artworkId}`
+        : `https://openart.onrender.com/openart/api/savedartworks/save_artwork/${artworkId}`;
 
       const response = await fetch(url, {
         method: artwork.isSaved ? "DELETE" : "POST",
@@ -149,7 +149,7 @@ const ArtworkDetailPage = () => {
 
     try {
       const response = await fetch(
-        `http://localhost:8000/openart/api/comments/add_comment_to_artwork/${artworkId}`,
+        `https://openart.onrender.com/openart/api/comments/add_comment_to_artwork/${artworkId}`,
         {
           method: "POST",
           credentials: "include",
@@ -176,7 +176,7 @@ const ArtworkDetailPage = () => {
   const handleDeleteComment = async (commentId) => {
     try {
       const response = await fetch(
-        `http://localhost:8000/openart/api/comments/delete_comment/${commentId}`,
+        `https://openart.onrender.com/openart/api/comments/delete_comment/${commentId}`,
         {
           method: "DELETE",
           credentials: "include",

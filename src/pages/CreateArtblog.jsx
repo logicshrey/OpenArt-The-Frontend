@@ -25,7 +25,7 @@ const CreateArtblog = () => {
     setError('');
     
     try {
-      const response = await fetch('http://localhost:8000/openart/api/artblogs/create_artblog', {
+      const response = await fetch('https://openart.onrender.com/openart/api/artblogs/create_artblog', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

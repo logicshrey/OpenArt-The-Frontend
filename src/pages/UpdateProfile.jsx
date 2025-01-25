@@ -7,7 +7,7 @@ import { Alert, AlertDescription } from '@/components/ui/alert';
 
 // Create axios instance with correct config
 const api = axios.create({
-    baseURL: 'http://localhost:8000/openart/api/users',
+    baseURL: 'https://openart.onrender.com/openart/api/users',
     withCredentials: true
 });
 
