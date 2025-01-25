@@ -87,7 +87,7 @@ const RegistrationForm = () => {
         }
       });
 
-      const response = await fetch('http://localhost:8000/openart/api/users/register', {
+      const response = await fetch('https://openart.onrender.com/openart/api/users/register', {
         method: 'POST',
         body: submitData,
       });
