@@ -20,6 +20,7 @@ const ArtworksPage = () => {
         setLoading(true);
         const response = await fetch('https://openart.onrender.com/openart/api/artworks/get_artworks_by_content_choice', {
           credentials: 'include',
+          method: 'GET',
           headers: {
             'Content-Type': 'application/json'
           }
