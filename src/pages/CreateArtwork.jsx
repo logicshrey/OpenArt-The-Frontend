@@ -131,10 +131,18 @@ const CreateArtwork = () => {
                   required
                 >
                   <option value="">Select a category</option>
-                  <option value="Digital Art">Digital Art</option>
-                  <option value="Painting">Painting</option>
+                  <option value="Music">Music</option>
+                  <option value="Dance">Dance</option>
+                  <option value="Poetry">Poetry</option>
+                  <option value="Acting">Acting</option>
                   <option value="Photography">Photography</option>
+                  <option value="Sketching">Sketching</option>
+                  <option value="Painting">Painting</option>
+                  <option value="Digital Art">Digital Art</option>
+                  <option value="Traditional Art">Traditional Art</option>
+                  <option value="Illustration">Illustration</option>
                   <option value="Sculpture">Sculpture</option>
+                  <option value="Sports">Sports</option>
                   <option value="Other">Other</option>
                 </select>
               </div>
